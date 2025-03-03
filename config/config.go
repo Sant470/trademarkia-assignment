@@ -1,13 +1,17 @@
 package config
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"strings"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-redis/redis"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/spf13/viper"
 	"go.elastic.co/ecszap"
 	"go.uber.org/zap"
@@ -81,4 +85,41 @@ func GetConsoleLogger() *zap.SugaredLogger {
 	core := ecszap.NewCore(encoder, os.Stdout, zapcore.DebugLevel)
 	logger := zap.New(core, zap.AddCaller())
 	return logger.Sugar()
+}
+
+// Middleware to verify JWT token
+func JWTAuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Get the "Authorization" header
+		authHeader := r.Header.Get("Authorization")
+		if authHeader == "" {
+			http.Error(w, "Missing Authorization header", http.StatusUnauthorized)
+			return
+		}
+
+		// Expected format: "Bearer <token>"
+		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		if tokenString == authHeader { // No Bearer prefix
+			http.Error(w, "Invalid Authorization header format", http.StatusUnauthorized)
+			return
+		}
+		// Validate and parse the JWT
+		claims := jwt.MapClaims{}
+		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+			// Ensure correct signing method
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			}
+			return []byte(appConfig.JWT), nil
+		})
+
+		if err != nil || !token.Valid {
+			http.Error(w, "Invalid or expired token", http.StatusUnauthorized)
+			return
+		}
+
+		// Attach claims to request context
+		ctx := context.WithValue(r.Context(), "userClaims", claims)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
 }

@@ -3,6 +3,7 @@ package v1
 import (
 	"net/http"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/sant470/trademark/common"
 	"github.com/sant470/trademark/common/errors"
 	"github.com/sant470/trademark/common/respond"
@@ -42,4 +43,13 @@ func (rh *RegistrationHlr) LoginHlr(rw http.ResponseWriter, r *http.Request) *er
 		return err
 	}
 	return respond.OK(rw, res)
+}
+
+func (rh *RegistrationHlr) AdminDataHlr(rw http.ResponseWriter, r *http.Request) *errors.AppError {
+	claims, _ := r.Context().Value("userClaims").(jwt.MapClaims)
+	role := claims["role"].(string)
+	if role != "admin" {
+		return errors.Unauthorized("Unauthorized Access")
+	}
+	return respond.OK(rw, map[string]interface{}{"data": "Sensitive admin information"})
 }
