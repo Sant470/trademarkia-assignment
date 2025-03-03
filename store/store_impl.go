@@ -27,3 +27,8 @@ func (impl *StoreImpl) AddUser(user *dtos.RegisterRequest) error {
 	_, err := impl.rdb.HMSet(key, common.StructToMap(user)).Result()
 	return err
 }
+
+func (impl *StoreImpl) GetUserDetails(username string) (map[string]string, error) {
+	key := userKey(username)
+	return impl.rdb.HGetAll(key).Result()
+}

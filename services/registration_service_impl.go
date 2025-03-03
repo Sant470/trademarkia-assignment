@@ -18,6 +18,12 @@ func NewRegistrationSvc(lgr *zap.SugaredLogger, store store.Store) *Registration
 	return &RegistrationSvcImpl{lgr, store}
 }
 
+// CheckPassword verifies a password against a stored hash
+func checkPassword(password, hashedPassword string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+	return err == nil // Returns true if passwords match
+}
+
 func (impl *RegistrationSvcImpl) RegisterSvc(reg *dtos.RegisterRequest) (*dtos.RegisterResponse, *errors.AppError) {
 	ok, err := impl.store.CheckUser(reg.UserName)
 	if err != nil {
@@ -40,4 +46,20 @@ func (impl *RegistrationSvcImpl) RegisterSvc(reg *dtos.RegisterRequest) (*dtos.R
 		return nil, errors.InternalServerError(err.Error())
 	}
 	return &dtos.RegisterResponse{APIKey: token, Message: "User registered successfully"}, nil
+}
+
+func (impl *RegistrationSvcImpl) LoginSvc(cred *dtos.LoginRequest) (*dtos.LoginResponse, *errors.AppError) {
+	user, err := impl.store.GetUserDetails(cred.UserName)
+	if err != nil {
+		return nil, errors.InternalServerError(err.Error())
+	}
+	ok := checkPassword(cred.Password, user["password"])
+	if !ok {
+		return nil, errors.Unauthorized("invalid username or password")
+	}
+	token, err := jwt.GenerateJWT(user["username"], user["role"])
+	if err != nil {
+		return nil, errors.InternalServerError(err.Error())
+	}
+	return &dtos.LoginResponse{APIKey: token}, nil
 }

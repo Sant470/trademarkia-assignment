@@ -24,3 +24,7 @@ func InternalServerError(message string) *AppError {
 func NotFound(message string) *AppError {
 	return &AppError{message, http.StatusNotFound}
 }
+
+func Unauthorized(message string) *AppError {
+	return &AppError{message, http.StatusUnauthorized}
+}

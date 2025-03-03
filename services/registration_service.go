@@ -7,4 +7,5 @@ import (
 
 type RegistrationSvc interface {
 	RegisterSvc(reg *dtos.RegisterRequest) (*dtos.RegisterResponse, *errors.AppError)
+	LoginSvc(cred *dtos.LoginRequest) (*dtos.LoginResponse, *errors.AppError)
 }

@@ -31,3 +31,15 @@ func (rh *RegistrationHlr) RegisterHlr(rw http.ResponseWriter, r *http.Request) 
 	}
 	return respond.OK(rw, res)
 }
+
+func (rh *RegistrationHlr) LoginHlr(rw http.ResponseWriter, r *http.Request) *errors.AppError {
+	var cred dtos.LoginRequest
+	if err := common.Decode(r, &cred); err != nil {
+		return errors.BadRequest("invalid params")
+	}
+	res, err := rh.svc.LoginSvc(&cred)
+	if err != nil {
+		return err
+	}
+	return respond.OK(rw, res)
+}

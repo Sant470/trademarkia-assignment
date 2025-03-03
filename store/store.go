@@ -5,4 +5,5 @@ import "github.com/sant470/trademark/dtos"
 type Store interface {
 	CheckUser(username string) (bool, error)
 	AddUser(user *dtos.RegisterRequest) error
+	GetUserDetails(username string) (map[string]string, error)
 }

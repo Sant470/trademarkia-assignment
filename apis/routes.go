@@ -11,5 +11,6 @@ import (
 func InitRegistrationHlr(r *chi.Mux, rh *v1.RegistrationHlr) {
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Method(http.MethodPost, "/register", common.Handler(rh.RegisterHlr))
+		r.Method(http.MethodPost, "/login", common.Handler(rh.LoginHlr))
 	})
 }
