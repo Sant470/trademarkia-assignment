@@ -16,6 +16,7 @@ import (
 
 type Config struct {
 	REDIS Redis
+	JWT   string
 }
 
 type Redis struct {
@@ -24,8 +25,17 @@ type Redis struct {
 	PASSWORD string
 }
 
+var (
+	appConfig *Config
+)
+
 func GetAppConfig(filename, path string) *Config {
-	return loadConfig(filename, path)
+	if appConfig != nil {
+		return appConfig
+	}
+	conf := loadConfig(filename, path)
+	appConfig = conf
+	return appConfig
 }
 
 func InitRouters() *chi.Mux {

@@ -8,8 +8,8 @@ import (
 	"github.com/sant470/trademark/common"
 )
 
-func InitSerachRoutes(r *chi.Mux, sh *v1.SearchHandler) {
-	r.Route("/api/v1/search", func(r chi.Router) {
-		r.Method(http.MethodPost, "/", common.Handler(sh.Search))
+func InitRegistrationHlr(r *chi.Mux, rh *v1.RegistrationHlr) {
+	r.Route("/api/v1", func(r chi.Router) {
+		r.Method(http.MethodPost, "/register", common.Handler(rh.RegisterHlr))
 	})
 }

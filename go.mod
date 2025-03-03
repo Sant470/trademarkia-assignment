@@ -6,9 +6,11 @@ toolchain go1.23.3
 
 require (
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/spf13/viper v1.18.2
 	go.elastic.co/ecszap v1.0.3
 	go.uber.org/zap v1.27.0
+	golang.org/x/crypto v0.16.0
 )
 
 require (
