@@ -49,7 +49,16 @@ func (rh *RegistrationHlr) AdminDataHlr(rw http.ResponseWriter, r *http.Request)
 	claims, _ := r.Context().Value("userClaims").(jwt.MapClaims)
 	role := claims["role"].(string)
 	if role != "admin" {
-		return errors.Unauthorized("Unauthorized Access")
+		return &errors.AppError{StatusCode: http.StatusForbidden, Message: "Unauthorized Access"}
 	}
 	return respond.OK(rw, map[string]interface{}{"data": "Sensitive admin information"})
+}
+
+func (rh *RegistrationHlr) UserDataHlr(rw http.ResponseWriter, r *http.Request) *errors.AppError {
+	claims, _ := r.Context().Value("userClaims").(jwt.MapClaims)
+	role := claims["role"].(string)
+	if role != "admin" && role != "user" {
+		return &errors.AppError{StatusCode: http.StatusForbidden, Message: "Unauthorized Access"}
+	}
+	return respond.OK(rw, map[string]interface{}{"data": "User dashboard information"})
 }
