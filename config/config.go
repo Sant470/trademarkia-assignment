@@ -19,14 +19,18 @@ import (
 )
 
 type Config struct {
-	REDIS Redis
-	JWT   string
+	REDIS     Redis
+	JWT       string
+	RATELIMIT RateLimit
 }
 
 type Redis struct {
 	HOST     string
 	PORT     string
 	PASSWORD string
+}
+
+type RateLimit struct {
 }
 
 var (
