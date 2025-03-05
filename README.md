@@ -18,9 +18,7 @@ Go to the project directory
   cd trademarkia-assignment
 ```
 
-```bash
-  add credential in config.yaml
-```
+Change Credential in config.yaml
 
 ### Build and Run with Docker
 
