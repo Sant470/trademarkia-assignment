@@ -48,7 +48,6 @@ Start the Server
 ## Test it locally
 Import the collection 'trademarkia.postman_collection.json' in postman.
 
-```
 ## Dependency && Installation
 
 It requires go version 1.22.0, you can download it following the guide mentioned below 
