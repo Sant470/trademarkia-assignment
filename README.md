@@ -22,7 +22,7 @@ Go to the project directory
   add credential in config.yaml
 ```
 
-## Build and Run with Docker
+### Build and Run with Docker
 
 Build dockerfile 
 
@@ -35,7 +35,7 @@ Run the Docker Container
   sudo docker run --network=host foo
 ```
 
-# Run Locally Without Docker
+### Run Locally Without Docker
 
 Install dependencies
 ```bash
