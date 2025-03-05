@@ -147,7 +147,6 @@ func RateLimitMiddleware(next http.Handler) http.Handler {
 		path := r.URL.Path
 		// Loop through policies and check if the request path matches any.
 		for _, policy := range appConfig.RateLimits {
-			fmt.Println("domain: ", policy.Domain)
 			if strings.HasSuffix(path, policy.Domain) {
 				ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -166,10 +165,8 @@ func RateLimitMiddleware(next http.Handler) http.Handler {
 				default:
 					ttl = time.Minute
 				}
-				fmt.Println("ttl: ", ttl)
 				// Increment the counter for this key.
 				count, err := rdb.Incr(ctx, key).Result()
-				fmt.Println("after: ", count)
 				if err != nil {
 					http.Error(w, "Rate limiter error", http.StatusInternalServerError)
 					return
@@ -180,9 +177,7 @@ func RateLimitMiddleware(next http.Handler) http.Handler {
 				}
 
 				// If the count exceeds the limit, reject the request.
-				fmt.Println("limit: ", policy.RateLimit.Limit)
 				if int(count) > policy.RateLimit.Limit {
-					fmt.Println("we are here: ", count)
 					retryAfter, _ := rdb.TTL(ctx, key).Result()
 					w.Header().Set("Retry-After", strconv.Itoa(int(retryAfter.Seconds())))
 					http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
