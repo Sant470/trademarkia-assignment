@@ -9,13 +9,13 @@ This service implements Role-Based Access Control (RBAC) and Rate Limiting to ma
 Clone the project
 
 ```bash
-  git clone git@github.com:Sant470/trademark.git
+  git https://github.com/Sant470/trademarkia-assignment.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd trademark
+  cd trademarkia-assignment
 ```
 
 ```bash
