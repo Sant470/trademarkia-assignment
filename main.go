@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/sant470/trademark/apis"
@@ -12,6 +13,7 @@ import (
 
 func main() {
 	conf := config.GetAppConfig("config.yaml", "./")
+	fmt.Println("config: ", conf)
 	lgr := config.GetConsoleLogger()
 	rdb := config.GetDBConn(lgr, conf.REDIS)
 	store := store.NewStore(lgr, rdb)

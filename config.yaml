@@ -3,3 +3,14 @@ REDIS:
   PORT: 6379
   PASSWORD: ""
 JWT: 3IklZWFmRmNvT2tJcFFLYnRzMTY2N3FzZnVhMHRhY3M=
+RateLimits:
+  - Domain: /admin/data
+    Value: ip_address
+    Ratelimit:
+      Unit: minute
+      Limit: 10
+  - Domain: /user/data
+    Value: ip_address
+    Ratelimit:
+      Unit: minute
+      Limit: 10
