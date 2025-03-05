@@ -45,10 +45,9 @@ Start the Server
   go run main.go
 ```
 
-Use the below collection to test different apis 
+## Test it locally
+Import the collection 'trademarkia.postman_collection.json' in postman.
 
-```bash
-https://universal-spaceship-200537.postman.co/workspace/Flam-Campaigns-Svc~5bb9cd61-1e44-4ff7-91b6-523485c33b4e/collection/8595172-5a29cddc-67e1-46cb-b7e2-fc394e0fabb7?action=share&creator=8595172
 ```
 ## Dependency && Installation
 

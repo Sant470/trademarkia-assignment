@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "fb93c5f2-a32b-49d6-a635-3a0c1580dad2",
+		"name": "trademarkia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8595172"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"john_doe_6\",\n    \"password\": \"securepass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'http://localhost:8000/api/v1/login' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"username\": \"john_doe_6\",\n    \"password\": \"securepass\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"john_doe_7\",\n  \"password\": \"securepass\",\n  \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'http://localhost:8000/api/v1/register' \\\n--header 'Content-Type: application/json' \\\n--data '{\n  \"username\": \"john_doe_7\",\n  \"password\": \"securepass\",\n  \"role\": \"admin\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "admin data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDEyMzAyNzAsImlhdCI6MTc0MTE0Mzg3MCwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJqb2huX2RvZV83In0.Ho0m3BjYMirU6OQihnLYozkm3jYVZheidX2hrc5QHXQ"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/admin/data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDEyMzAyNzAsImlhdCI6MTc0MTE0Mzg3MCwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJqb2huX2RvZV83In0.Ho0m3BjYMirU6OQihnLYozkm3jYVZheidX2hrc5QHXQ"
+					}
+				],
+				"url": {
+					"raw": "http://0.0.0.0:8000/api/v1/user/data",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
